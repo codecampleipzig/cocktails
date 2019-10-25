@@ -406,3 +406,36 @@ request.addEventListener('load', function (event) {
 })
 ```
 
+## Use Promises
+
+1. Using callbacks to handle asynchronicity is somewhat outdated. The new and better way is to wrap asynchronous calls in a Promise. Let's write a function to request JSON data from an API, that returns the JSON object inside a Promise.
+
+```js
+function fetchJSON(url) {
+   return new Promise (function (resolve, reject) {
+      var request = new XMLHttpRequest();
+      request.open ("GET", url);
+      request.addEventListener ("load", function (event) {
+         if (request.status == 200) {
+            resolve(JSON.parse (request.value));
+         }
+         else {
+            reject();
+         }
+      })
+      request.send();
+   });
+
+}
+```
+
+2. Now we can call fetchJSON to create a Promise. We can't use the value inside the promise. Instead we call a method on the Promise called then. It takes a callback as an argument, which gets the apiResponse passed as an argument
+
+```
+var promise = fetchJSON("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin");
+
+promise.then (function (apiResponse) {
+   addCocktailCards(apiResponse.drinks);
+})
+```
+

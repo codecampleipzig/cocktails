@@ -67,15 +67,24 @@ function addCocktailCards(drinks) {
    }
 }
 
-var request = new XMLHttpRequest();
-request.open("GET", "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin")
+function fetchJSON(url) {
+   return new Promise (function (resolve, reject) {
+      var request = new XMLHttpRequest();
+      request.open ("GET", url);
+      request.addEventListener ("load", function (event) {
+         if (request.status == 200) {
+            resolve(JSON.parse (request.response));
+         }
+         else {
+            reject();
+         }
+      })
+      request.send();
+   });
+}
 
-request.addEventListener('load', function (event) {
-   if (request.status != 200) {
-      throw new Error ("CocktailDB is not reachable")
-   }
-   var apiResponse = JSON.parse(request.response);
+var promise = fetchJSON("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin");
+
+promise.then (function (apiResponse) {
    addCocktailCards(apiResponse.drinks);
 })
-
-request.send();
