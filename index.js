@@ -40,9 +40,15 @@ function createCocktailSpotlight(name, imageUrl, id) {
    h1.textContent = name;
    card.appendChild(h1);
 
-   // We'll fetch the instructions later from the API using the id
    var instructions = document.createElement('p');
-   instructions.textContent = "Instructions will go here";
+
+   var responsePromise = fetchJSON ("https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + id);
+
+   responsePromise.then (function (apiResponse) {
+      var drink = apiResponse.drinks[0];
+      instructions.textContent = drink.strInstructions;
+   });
+
    card.appendChild(instructions);
 
    // Add the card to the spotlight

@@ -467,3 +467,30 @@ async function init() {
    addCocktailCards (apiResponse.drinks);
 };
 ```
+
+## Fetch the cocktail details for the spotlight
+
+Now we want to display the actual cocktail instructions when the spotlight is shown. To do that we have to call fetchJSON with another API address. We can get more details for a cocktail with a specific id (11007 in this case) with this url:
+https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007
+
+We'll fetch the data inside the createCocktailSpotlight function
+
+1. First call fetchJSON with the right URL to get a Promise.
+
+index.js inside createCocktailSpotlight
+
+```js
+var responsePromise = fetchJSON ("https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + id);
+```
+
+2. Then add a then action to the Promise that sets the instructions.textContent
+
+```js
+responsePromise.then (function (apiResponse) {
+   var drink = apiResponse.drinks[0];
+   instructions.textContent = drink.strInstructions;
+});
+```
+
+
+
