@@ -20,4 +20,5 @@ function createCocktailCard (name, imageUrl, id) {
 
 var testCocktailCard = createCocktailCard ("Stinger", "https:\/\/www.thecocktaildb.com\/images\/media\/drink\/2ahv791504352433.jpg", 17193);
 
-document.body.appendChild (testCocktailCard);
+var cocktailList = document.querySelector ('#cocktail-list');
+cocktailList.appendChild (testCocktailCard);

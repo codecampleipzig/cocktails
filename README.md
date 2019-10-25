@@ -120,3 +120,22 @@ var testCocktailCard = createCocktailCard ("Stinger", "https:\/\/www.thecocktail
 
 document.body.appendChild (testCocktailCard);
 ```
+
+## Query an element with a selector
+
+We don't want to add the cocktail cards directly to the body, instead we want to create a container with a list element inside
+
+1. Edit the html to create a div with the id main-container and inside the container a div with the id cocktail-list
+
+```html
+   <div id="main-container">
+      <div id="cocktail-list"></div>
+   </div>
+```
+
+2. We can now select the element using javascript and add our cocktail card to the cocktail-list instead of the body
+
+```js
+var cocktailList = document.querySelector ('#cocktail-list');
+cocktailList.appendChild (testCocktailCard);
+```
