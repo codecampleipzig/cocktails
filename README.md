@@ -4,11 +4,13 @@ A website that fetches cocktail recipes from [The Cocktail DB API](https://www.t
 
 ## Setting up the project
 
-1. Initialize npm package management `$ npm init -y`
+1. git clone this repository.
 
-2. Install [parcel](https://parceljs.org/) through npm `$ npm install --save-dev parcel-bundler`
+2. Initialize npm package management `$ npm init -y`
 
-3. Change the script in the package.json file
+3. Install [parcel](https://parceljs.org/) through npm `$ npm install --save-dev parcel-bundler`
+
+4. Change the script in the package.json file
 ```json
 {
   "scripts": {
@@ -18,7 +20,7 @@ A website that fetches cocktail recipes from [The Cocktail DB API](https://www.t
 }
 ```
 
-4. Create a index.html file `touch index.html` with DOCTYPE, head, body and the title Cocktails
+5. Create a index.html file `touch index.html` with DOCTYPE, head, body and the title Cocktails
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -33,15 +35,15 @@ A website that fetches cocktail recipes from [The Cocktail DB API](https://www.t
 </html>
 ```
 
-5. Test dev script: `npm run dev`
+6. Test dev script: `npm run dev`
 
 If you open http://localhost:1234 in your browser, you should see the empty website with the title Cocktails in the tab header.
 
-6. Test build script: `npm run build`
+7. Test build script: `npm run build`
 
 This should create a dist folder (short for distribution) which will contain an index.html file.
 
-7. Create a style.css file in the root folder and include it right before the closing `</head>` tag. Test whether it's working by setting the body background-color.
+8. Create a style.css file in the root folder and include it right before the closing `</head>` tag. Test whether it's working by setting the body background-color.
 
 index.html
 ```html
@@ -55,7 +57,7 @@ body {
 }
 ```
 
-8. Add a index.js file and include it in your html file right before the closing `</body>` tag. Test whether it's working by calling `alert`
+9. Add a index.js file and include it in your html file right before the closing `</body>` tag. Test whether it's working by calling `alert`
 
 index.html
 ```html
@@ -67,14 +69,14 @@ index.js
 alert ("Hello from index.js");
 ```
 
-7. Add a .gitignore file and exclude the node_modules, dist and .cache folder
+10. Add a .gitignore file and exclude the node_modules, dist and .cache folder
 ```
 node_modules/
 dist/
 .cache/
 ```
 
-8. Initialize git: `git init` and commit everything.
+11. Commit everything you have done so far.
 
 ## Create a html element through javascript
 
