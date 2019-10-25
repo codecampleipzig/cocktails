@@ -1,11 +1,8 @@
-function createCocktailCard(name, imageUrl, id) {
+function createCocktailCard(name: string, imageUrl: string, id: number): Element {
    var result = document.createElement('div');
 
    // Setting the class
    result.classList.add('card');
-
-   // Setting the data-id attribute
-   result.dataset.id = id;
 
    var img = document.createElement('img');
    img.src = imageUrl;
@@ -24,7 +21,7 @@ function createCocktailCard(name, imageUrl, id) {
    return result;
 }
 
-function createCocktailSpotlight(name, imageUrl, id) {
+function createCocktailSpotlight(name: string, imageUrl: string, id: number): Element {
    var result = document.createElement('div');
    result.id = 'spotlight';
 
@@ -42,9 +39,9 @@ function createCocktailSpotlight(name, imageUrl, id) {
 
    var instructions = document.createElement('p');
 
-   var responsePromise = fetchJSON ("https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + id);
+   var responsePromise = fetchJSON("https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + String(id));
 
-   responsePromise.then (function (apiResponse) {
+   responsePromise.then(function (apiResponse: any) {
       var drink = apiResponse.drinks[0];
       instructions.textContent = drink.strInstructions;
    });
@@ -61,25 +58,35 @@ function createCocktailSpotlight(name, imageUrl, id) {
    return result;
 }
 
-function addCocktailCards(drinks) {
+interface Drink {
+   strDrink: string;
+   strDrinkThumb: string;
+   idDrink: string;
+}
+
+function addCocktailCards(drinks: Drink[]): void {
    var cocktailList = document.querySelector('#cocktail-list');
    for (var i = 0; i < drinks.length; i++) {
       var drink = drinks[i];
       var name = drink.strDrink;
       var imageUrl = drink.strDrinkThumb;
-      var id = drink.idDrink;
+      var id = Number(drink.idDrink);
       var cocktailCard = createCocktailCard(name, imageUrl, id);
       cocktailList.appendChild(cocktailCard);
    }
 }
 
-function fetchJSON(url) {
-   return new Promise (function (resolve, reject) {
+interface ApiResponse {
+   drinks: Drink[];
+}
+
+function fetchJSON(url: string): Promise<ApiResponse> {
+   return new Promise(function (resolve, reject) {
       var request = new XMLHttpRequest();
-      request.open ("GET", url);
-      request.addEventListener ("load", function (event) {
+      request.open("GET", url);
+      request.addEventListener("load", function (event) {
          if (request.status == 200) {
-            resolve(JSON.parse (request.response));
+            resolve(JSON.parse(request.response));
          }
          else {
             reject();
@@ -90,8 +97,8 @@ function fetchJSON(url) {
 }
 
 async function init() {
-   var apiResponse = await fetchJSON("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin");
-   addCocktailCards (apiResponse.drinks);
+   var apiResponse: any = await fetchJSON("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin");
+   addCocktailCards(apiResponse.drinks);
 };
 
 init();
