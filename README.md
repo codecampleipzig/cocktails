@@ -344,3 +344,65 @@ Make it pretty.
 
 ![](https://img.posterlounge.de/images/big/1866034.jpg)
 
+## Call an API
+
+1. Let's first use the XMLHttpRequest constructor. With open we can specify the HTTP method (GET) and the URL through a call to open. The response will be delivered **asyncroniously** through an event handler. The name of the event is `load`.
+
+```js
+var request = new XMLHttpRequest();
+request.open("GET", "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin")
+
+request.addEventListener ('load', function (event) {
+   console.log (request.response);
+   console.log (typeof request.response); // string
+})
+
+request.send();
+```
+
+2. The response is a JSON string. We have to use JSON to parse it.
+
+```js
+request.addEventListener ('load', function (event) {
+   var apiResponse = JSON.parse (request.response);
+   console.log (typeof apiResponse); // object
+})
+```
+
+3. This apiResponse has to be used when we setup the cocktail cards. So first we wrap the setup code in a function which has the apiResponse as a parameter. We can also get rid of the fake apiResponse.
+
+```js
+function addCocktailCards(drinks) {
+   var cocktailList = document.querySelector('#cocktail-list');
+   for (var i = 0; i < drinks.length; i++) {
+      var drink = drinks[i];
+      var name = drink.strDrink;
+      var imageUrl = drink.strDrinkThumb;
+      var id = drink.idDrink;
+      var cocktailCard = createCocktailCard(name, imageUrl, id);
+      cocktailList.appendChild(cocktailCard);
+   }
+}
+```
+
+4. Now in the event listener of the XMLHttpRequest we call this function with the real apiResponse.
+
+```js
+request.addEventListener('load', function (event) {
+   var apiResponse = JSON.parse(request.response);
+   addCocktailCards(apiResponse.drinks);
+})
+```
+
+5. We also want to check wheter the request actually succeeded. For that we check the status code and throw if there was an error.
+
+```js
+request.addEventListener('load', function (event) {
+   if (request.status != 200) {
+      throw new Error ("CocktailDB is not reachable")
+   }
+   var apiResponse = JSON.parse(request.response);
+   addCocktailCards(apiResponse.drinks);
+})
+```
+
