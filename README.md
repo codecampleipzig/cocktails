@@ -2,7 +2,7 @@
 
 A website that fetches cocktail recipes from [The Cocktail DB API](https://www.thecocktaildb.com/api.php) and displays them in a website.
 
-## Setting up the Project
+## Setting up the project
 
 1. Initialize npm package management `$ npm init -y`
 
@@ -139,3 +139,96 @@ We don't want to add the cocktail cards directly to the body, instead we want to
 var cocktailList = document.querySelector ('#cocktail-list');
 cocktailList.appendChild (testCocktailCard);
 ```
+
+## Creating a list of elements from mack data
+
+1. Add a fake apiResponse at the beginning of your index.js file
+
+index.js
+```js
+var apiResponse = {
+   "drinks": [
+      {
+         "strDrink": "3-Mile Long Island Iced Tea",
+         "strDrinkThumb": "https:\/\/www.thecocktaildb.com\/images\/media\/drink\/rrtssw1472668972.jpg",
+         "idDrink": "15300"
+       },
+       {
+         "strDrink": "69 Special",
+         "strDrinkThumb": "https:\/\/www.thecocktaildb.com\/images\/media\/drink\/vqyxqx1472669095.jpg",
+         "idDrink": "13940"
+       },
+       {
+         "strDrink": "A1",
+         "strDrinkThumb": "https:\/\/www.thecocktaildb.com\/images\/media\/drink\/2x8thr1504816928.jpg",
+         "idDrink": "17222"
+       },
+       {
+         "strDrink": "Abbey Cocktail",
+         "strDrinkThumb": "https:\/\/www.thecocktaildb.com\/images\/media\/drink\/quyyuw1472811568.jpg",
+         "idDrink": "17834"
+       },
+       {
+         "strDrink": "Abbey Martini",
+         "strDrinkThumb": "https:\/\/www.thecocktaildb.com\/images\/media\/drink\/2mcozt1504817403.jpg",
+         "idDrink": "17223"
+       },
+       {
+         "strDrink": "Ace",
+         "strDrinkThumb": "https:\/\/www.thecocktaildb.com\/images\/media\/drink\/l3cd7f1504818306.jpg",
+         "idDrink": "17225"
+       },
+       {
+         "strDrink": "Adam & Eve",
+         "strDrinkThumb": "https:\/\/www.thecocktaildb.com\/images\/media\/drink\/vfeumw1504819077.jpg",
+         "idDrink": "17226"
+       },
+       {
+         "strDrink": "Addison",
+         "strDrinkThumb": "https:\/\/www.thecocktaildb.com\/images\/media\/drink\/yzva7x1504820300.jpg",
+         "idDrink": "17228"
+       }
+   ]
+};
+```
+
+2. Test whether this worked by doing a console.log of apiResponse
+```js
+console.log(apiResponse);
+```
+
+3. Now we want to get the drinks from the response and loop over them
+```js
+var drinks = apiResponse.drinks;
+
+for (var i = 0; i < drinks.length; i++) {
+   var drink = drinks[i];
+   console.log (drink);
+}
+```
+
+4. Now instead of appending our one testCocktailCard let's append a cocktail card in every iteration of the loop.
+
+We first have to get our individual properties from the drink. We have to look at the mock data to figure out which property names the apiResponse uses.
+
+```js
+var drink = drinks[i];
+var name = drink.strDrink;
+var imageUrl = drink.strDrinkThumb;
+var id = drink.idDrink;
+```
+
+Then we can call our createCocktailCard function and append the element it returns to the cocktailList.
+
+```js
+for (var i = 0; i < drinks.length; i++) {
+   var drink = drinks[i];
+   var name = drink.strDrink;
+   var imageUrl = drink.strDrinkThumb;
+   var id = drink.idDrink;
+
+   var cocktailCard = createCocktailCard (name, imageUrl, id);
+   cocktailList.appendChild (cocktailCard);
+}
+```
+5. Clean up your index.js file. Get rid of the console.log(apiResponse) and the testCocktailCard.
