@@ -234,3 +234,112 @@ for (var i = 0; i < drinks.length; i++) {
 }
 ```
 5. Clean up your index.js file. Get rid of the console.log(apiResponse) and the testCocktailCard.
+
+## Add an EventListener
+
+Next we want to add a modal spotlight screen with more details about a cocktail, that gets shown when you click on a cocktail card.
+
+1. First inside the createCocktailCard function add the Event Listener
+
+```js
+result.addEventListener ('click', function (event) {
+   console.log ("You clicked on " + name);
+})
+```
+Check whether the event listener is working.
+Instead of logging to the console we want to add a new html element to the document, that will overlay the full screen.
+
+2. Write a function called createCocktailSpotlight, which takes again the name, title and id as parameters and returns an html element like this:
+```html
+<div id="spotlight">
+   <div id="spotlight-card">
+      <h1>{{name}}</h1>
+      <img src={{imageUrl}}>
+      <p>Instructions will go here...</p>
+   </div>
+</div>
+```
+
+index.js
+```js
+function createCocktailSpotlight(name, imageUrl, id) {
+   var result = document.createElement('div');
+   result.id = 'spotlight';
+
+   // Create a card for the cocktail details
+   var card = document.createElement ('div');
+   card.id = 'spotlight-card';
+
+   var h1 = document.createElement('h1');
+   h1.textContent = name;
+   card.appendChild(h1);
+
+   var img = document.createElement('img');
+   img.src = imageUrl;
+   card.appendChild(img);
+
+   // We'll fetch the instructions later from the API using the id
+   var instructions = document.createElement ('p');
+   instructions.textContent = "Instructions will go here";
+   card.appendChild (instructions);
+
+   // Add the card to the spotlight
+   result.appendChild (card);
+
+   return result;
+}
+```
+
+3. Add some style so its always on top
+
+style.css
+```css
+#overlay {
+   position: fixed;
+   top: 0px;
+   left: 0px;
+   width: 100vw;
+   height: 100vh;
+   background-color: rgba(0, 0, 0, 0.5);
+}
+
+#spotlight-card {
+   background-color: blanchedalmond;
+   width: 50vw;
+}
+```
+
+4. Next we want to add it to the html body, whenever we click on a card. So in our Event listener in createCocktailCard we add this.
+
+```js
+result.addEventListener ('click', function (event) {
+   var spotlight = createCocktailSpotlight (name, imageUrl, id);
+   document.body.appendChild (spotlight);
+});
+```
+
+Now when we click on a card we should see an overlay with the spotlight apper.
+
+5. Once we click on a cocktail card the spotlight will stay on the site forever. Let's add an Event Listener to the spotlight, to remove it again, when we click on it.
+
+index.js in createCocktailSpotlight()
+```js
+result.addEventListener('click', function (event) {
+   result.remove();
+})
+```
+
+## Basic styling
+
+Make it pretty.
+
+### Inspirtation
+![](https://images-na.ssl-images-amazon.com/images/I/51BXZ-y8PQL.jpg)
+
+![](https://cdn.shopify.com/s/files/1/0059/0318/8021/products/COC001-cocktail-poster-1_1024x1024.jpg?v=1542817836)
+
+![](https://www.nosoloposters.com/7686-thickbox_default/poster-lily-val-cocktails.jpg)
+
+![](https://ctl.s6img.com/society6/img/uFd0rnqX6kUvJJ75gtmw_evzRbY/w_700/prints/~artwork/s6-0042/a/18958001_4934003/~~/art-deco-cocktail-recipe-poster-prints.jpg?wait=0&attempt=0)
+
+![](https://img.posterlounge.de/images/big/1866034.jpg)
