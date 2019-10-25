@@ -439,3 +439,31 @@ promise.then (function (apiResponse) {
 })
 ```
 
+## Use async await
+
+The actual benefit of using promises is the possibility to use them in async functions. Inside an async function we can use the special keyword await to unpack a Promise and actually wait on its value before we run the rest of our code. That makes code with a lot of asynchronous calls much more readable.
+
+1. First to make this work we have to configure babel to transpile async functions so they work in older browsers. Create a .babelrc file with the following content
+```
+{
+  "plugins": ["@babel/plugin-transform-runtime"]
+}
+```
+
+2. Let's write an async function for our main setup and call it immediately;
+```js
+async function init() {
+
+};
+
+init();
+```
+
+3. Inside the async function we can know call functions returning promises as if they are returning normal values. We only have to specify that we want to await the promise.
+
+```js
+async function init() {
+   var apiResponse = await fetchJSON("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin");
+   addCocktailCards (apiResponse.drinks);
+};
+```

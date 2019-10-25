@@ -83,8 +83,9 @@ function fetchJSON(url) {
    });
 }
 
-var promise = fetchJSON("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin");
+async function init() {
+   var apiResponse = await fetchJSON("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin");
+   addCocktailCards (apiResponse.drinks);
+};
 
-promise.then (function (apiResponse) {
-   addCocktailCards(apiResponse.drinks);
-})
+init();
