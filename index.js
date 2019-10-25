@@ -52,13 +52,13 @@ function createCocktailCard(name, imageUrl, id) {
    // Setting the data-id attribute
    result.dataset.id = id;
 
-   var h3 = document.createElement('h3');
-   h3.textContent = name;
-   result.appendChild(h3);
-
    var img = document.createElement('img');
    img.src = imageUrl;
    result.appendChild(img);
+
+   var h3 = document.createElement('h3');
+   h3.textContent = name;
+   result.appendChild(h3);
 
    // Add some function to be called whenever we click the element
    result.addEventListener('click', function (event) {
@@ -77,13 +77,13 @@ function createCocktailSpotlight(name, imageUrl, id) {
    var card = document.createElement ('div');
    card.id = 'spotlight-card';
 
-   var h1 = document.createElement('h1');
-   h1.textContent = name;
-   card.appendChild(h1);
-
    var img = document.createElement('img');
    img.src = imageUrl;
    card.appendChild(img);
+
+   var h1 = document.createElement('h1');
+   h1.textContent = name;
+   card.appendChild(h1);
 
    // We'll fetch the instructions later from the API using the id
    var instructions = document.createElement ('p');

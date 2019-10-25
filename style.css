@@ -1,6 +1,60 @@
+:root {
+   --primary-color: #7EAEB5;
+   --secondary-color: #F1EAD5;
+   --tertiary-color: #E7D077;
+   --font-color: #515054;
+   --heading-font: 'Poiret One', cursive;
+   --body-font: 'Tenor Sans', sans-serif;
+}
+
+::selection { 
+   background: var(--tertiary-color);
+}
+
 body {
-   background-color: blanchedalmond;
-   margin: 0px;
+   font-family: var(--body-font);
+   margin: 0;
+   background-color:var(--primary-color);
+   color: var(--font-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+   font-family: var(--heading-font);
+}
+
+#main-container {
+   max-width: 1000px;
+   margin: 0 auto;
+   padding: 0 1em;
+}
+
+.header {
+   text-align: center;
+   background-color: var(--secondary-color);
+   width: 80%;
+   margin: 2em auto;
+   padding: 1em;
+}
+
+.header h1 {
+   font-size: 2rem;
+}
+
+#cocktail-list {
+   display: grid;
+   grid-template-columns: repeat(5, 1fr);
+   grid-template-rows: auto;
+   gap: 0.8em;
+}
+
+.card {
+   text-align: center;
+   background-color: var(--secondary-color);
+   padding: 0.5em;
+}
+
+.card img {
+   width: 100%;
 }
 
 #spotlight {
@@ -10,8 +64,45 @@ body {
    width: 100vw;
    height: 100vh;
    background-color: rgba(0, 0, 0, 0.5);
+   display: flex;
+   justify-content: center;
+   align-items: center;
 }
 
 #spotlight-card {
    background-color: blanchedalmond;
+   width: 50vw;
+   text-align: center;
+   padding: 2em;
+}
+
+#spotlight-card img {
+   width: 100%;
+}
+
+@media (max-width: 700px) {
+   :root {
+      font-size: 14px;
+   }
+   #cocktail-list {
+      grid-template-columns: repeat(3, 1fr);
+   }
+}
+
+@media (max-width: 400px) {
+   :root {
+      font-size: 12px;
+   }
+   #cocktail-list {
+      grid-template-columns: repeat(2, 1fr);
+   }
+}
+
+@media (max-width: 200px) {
+   :root {
+      font-size: 10px;
+   }
+   #cocktail-list {
+      grid-template-columns: repeat(1, 1fr);
+   }
 }
