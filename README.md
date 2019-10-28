@@ -4,6 +4,15 @@ A website that fetches cocktail recipes from [The Cocktail DB API](https://www.t
 
 ## Setting up the project
 
+### References
+* [Parcel Bundler](https://parceljs.org/)
+* [Parcel Getting Started](https://parceljs.org/getting_started.html)
+* [npm CLI](https://docs.npmjs.com/cli-documentation/cli)
+* [npm package.json File](https://docs.npmjs.com/creating-a-package-json-file)
+* [.gitignore](https://git-scm.com/docs/gitignore)
+
+### Instructions
+
 1. git clone this repository.
 
 2. Initialize npm package management `$ npm init -y`
@@ -80,13 +89,21 @@ dist/
 
 ## Create a html element through javascript
 
+### References
+* [Document Reference](https://developer.mozilla.org/en-US/docs/Web/API/Document)
+   * [document.createElement](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement)
+* [Element Reference](https://developer.mozilla.org/en-US/docs/Web/API/Element)
+   * [element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)
+   
+### Instructions
+
 1. Get rid of the `alert`
 2. Create a javascript function called `createCocktailCard`
-which takes three arguments: `name`, `imageUrl` and `id`
+which takes three arguments: `name`, `imageUrl` and `id`. (We won't use the id for now, but we'll need it later)
 
 It should return this div:
 ```html
-<div class="card" data-id={{id}}>
+<div class="card">
    <h3>{{name}}</h3>
    <img src="{{imageUrl}}">
 </div>
@@ -99,9 +116,6 @@ function createCocktailCard (name, imageUrl, id) {
 
    // Setting the class
    result.classList.add ('card');
-
-   // Setting the data-id attribute
-   result.dataset.id = id;
    
    var h3 = document.createElement ('h3');
    h3.textContent = name;
@@ -127,6 +141,11 @@ document.body.appendChild (testCocktailCard);
 
 We don't want to add the cocktail cards directly to the body, instead we want to create a container with a list element inside
 
+### References
+* [document.querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)
+
+### Instructions
+
 1. Edit the html to create a div with the id main-container and inside the container a div with the id cocktail-list
 
 ```html
@@ -142,7 +161,7 @@ var cocktailList = document.querySelector ('#cocktail-list');
 cocktailList.appendChild (testCocktailCard);
 ```
 
-## Creating a list of elements from mack data
+## Creating a list of elements from mock data
 
 1. Add a fake apiResponse at the beginning of your index.js file
 
@@ -238,6 +257,13 @@ for (var i = 0; i < drinks.length; i++) {
 ## Add an EventListener
 
 Next we want to add a modal spotlight screen with more details about a cocktail, that gets shown when you click on a cocktail card.
+
+### References
+
+* [addEventListener](https://developer.mozilla.org/de/docs/Web/API/EventTarget/addEventListener)
+* [w3Schools How To](https://www.w3schools.com/howto/default.asp)
+
+### Instructions
 
 1. First inside the createCocktailCard function add the Event Listener
 
@@ -346,6 +372,12 @@ Make it pretty.
 
 ## Call an API
 
+### References
+* [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)
+* [Cocktail API](https://www.thecocktaildb.com/api.php)
+
+### Instructions
+
 1. Let's first use the XMLHttpRequest constructor. With open we can specify the HTTP method (GET) and the URL through a call to open. The response will be delivered **asyncroniously** through an event handler. The name of the event is `load`.
 
 ```js
@@ -408,7 +440,14 @@ request.addEventListener('load', function (event) {
 
 ## Use Promises
 
-1. Using callbacks to handle asynchronicity is somewhat outdated. The new and better way is to wrap asynchronous calls in a Promise. Let's write a function to request JSON data from an API, that returns the JSON object inside a Promise.
+Using callbacks to handle asynchronicity is somewhat outdated. The new and better way is to wrap asynchronous calls in a Promise. 
+
+### References
+* [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+
+### Instructions
+
+1. Let's write a function to request JSON data from an API, that returns the JSON object inside a Promise. The url is a parameter.
 
 ```js
 function fetchJSON(url) {
@@ -431,7 +470,7 @@ function fetchJSON(url) {
 
 2. Now we can call fetchJSON to create a Promise. We can't use the value inside the promise. Instead we call a method on the Promise called then. It takes a callback as an argument, which gets the apiResponse passed as an argument
 
-```
+```js
 var promise = fetchJSON("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin");
 
 promise.then (function (apiResponse) {
@@ -442,6 +481,11 @@ promise.then (function (apiResponse) {
 ## Use async await
 
 The actual benefit of using promises is the possibility to use them in async functions. Inside an async function we can use the special keyword await to unpack a Promise and actually wait on its value before we run the rest of our code. That makes code with a lot of asynchronous calls much more readable.
+
+### References
+* [Async functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
+
+### Instructions
 
 1. First to make this work we have to configure babel to transpile async functions so they work in older browsers. Create a .babelrc file with the following content
 ```
