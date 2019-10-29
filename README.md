@@ -320,7 +320,7 @@ function createCocktailSpotlight(name, imageUrl, id) {
 
 style.css
 ```css
-#overlay {
+#spotlight {
    position: fixed;
    top: 0px;
    left: 0px;
