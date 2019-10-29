@@ -275,7 +275,7 @@ result.addEventListener ('click', function (event) {
 Check whether the event listener is working.
 Instead of logging to the console we want to add a new html element to the document, that will overlay the full screen.
 
-2. Write a function called createCocktailSpotlight, which takes again the name, title and id as parameters and returns an html element like this:
+2. Write a function called createCocktailSpotlight, which takes again the name, image Url and id as parameters and returns an html element like this:
 ```html
 <div id="spotlight">
    <div id="spotlight-card">
